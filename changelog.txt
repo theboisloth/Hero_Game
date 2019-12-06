@@ -1,0 +1,33 @@
+-------------------------------------------------------------------=12/3/2019=---------------------------------------------------------------------
+
+Added Inventory System with 3 items currently implemented, and one being worked on for implementation.
+    
+    Firebomb; deals damage; damage and amount you start with are based on difficulty.
+    Small Health Potion; heals hero; amount healed and amount you start with are based on difficulty.
+    Health Potion; heals hero; amount healed and amount you start with are based on difficulty.
+    
+    Ironskin (in development); reduces damage the hero takes from attacks for (2, 5) turns, damage reduction based on difficulty.
+
+*************************************************************************************************************************************************
+
+To Be Added:
+Map system; an overworld to walk around on and play in, each tile having a chance to encounter an enemy (in certain areas).
+The orc being a boss instead of the only enemy.
+New Enemies: Spider, Slime, Dark Alchemist
+Shop System, Buy Certain Items from Certain Shops.
+Item Drops from enemies, percent chance for drop based on enemy being fought:
+    Slime Drops:
+    Spider Drops: 
+    Dark Alchemist Drops:
+
+*************************************************************************************************************************************************
+
+Maybe Add:
+Level System, with scaling enemy stats to go with.
+Crafting system, get certain drops from enemies that you can craft into useful items.
+
+-------------------------------------------------------------------=12/4/2019=---------------------------------------------------------------------
+Started work on the overworld system.
+-------------------------------------------------------------------=12/5/2019=---------------------------------------------------------------------
+Random encounters work in overworld.py, just need implementation.
+saveGame.py works with all features from the files (hero, inventory, orc) as of 12:16PM
