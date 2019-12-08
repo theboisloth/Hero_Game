@@ -1,7 +1,8 @@
 #Fight code made from scratch
 #This starts the fight, takes enemy type
 #Cannnot save while in combat
-import hero, orc, inventory, saveGame, wolf#, spider, witch, slime
+import hero, orc, saveGame, wolf#, spider, witch, slime
+import inventory as inv
 import random
 
 rounds_poisoned = 0
@@ -82,24 +83,15 @@ def fight(enemyType, difficultyLevel): #Takes enemy encountered
         if rounds_bled > 0:
             rounds_bled -= 1
             dealBleedDamage()
+        display_health(enemyType)
+        round += 1
     
     #End of Fight
     if hero.health <= 0:
         print("The Hero has fallen.")
     
     if getEnemyHealth(enemyType) <= 0:
-        if enemyType == 1:
-            print("The Wolf Died")
-        
-        elif enemyType == 2:
-            pass
-        elif enemyType == 3:
-            pass
-        elif enemyType == 4:
-            pass
-        
-        elif enemyType == 5:
-            print("The Orc died")
+        print(f"The {enemy} died.")
 
 def battleEntry(enemyType):
     if enemyType == 1:
@@ -118,13 +110,17 @@ def enemy_turn_logic(rounds_poisoned, rounds_stunned, rounds_bled, enemyType):
     
     if enemyType == 1: #Checks enemy type
         damage, didBleed = wolf.attack(rounds_stunned > 0)
-        if damage > 0 and didBleed:
+        if damage > 0 and didBleed and rounds_stunned == 0:
             hero.deal_damage(damage)
             rounds_bled = random.randint(1, 6)
-        elif damage > 0 and not didBleed:
+            print("The attack caused you to bleed!")
+        elif damage > 0 and not didBleed and rounds_stunned == 0:
             hero.deal_damage(damage)
+        elif rounds_stunned == 0:
+            print("The Wolf Missed!")
+        elif rounds_stunned != 0:
+            print("The Wolf is Stunned!")
 
-    
 
     elif enemyType == 2:
         pass
@@ -163,13 +159,13 @@ def stun_logic (rounds_stunned, enemy):
     if rounds_stunned <= 0:
         stun_roll = random.randint(1, 100)
         if stun_roll <= STUN_RATE:
-            print("You stunned the orc!")
+            print(f"You stunned the {enemy}!")
             rounds_stunned = random.randint(1, 2)
     return rounds_stunned
 
 def display_health (enemyType):
     print(f"You have {hero.health} health remaining")
-    print(f"The orc has {orc.health} health remaining")
+    print(f"The enemy has {getEnemyHealth(enemyType)} health left")
 
 def getEnemyHealth(enemyType):
     if enemyType == 1:
@@ -204,4 +200,5 @@ def fight_is_over(enemyType):
 
 
 #Test Wolf Fight
+inv.configure_difficulty(1)
 fight(1, 1)

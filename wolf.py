@@ -9,9 +9,9 @@ SEVER_DAMAGE_RANGE = ((20, 40), (25, 45), (30, 50)) #Sever attack has a chance t
 
 SEVER_MISS_CHANCE = (50, 40, 25)
 MISS_CHANCE = (15, 10, 2)
-BLEED_CHANCE = (20, 40, 70)
+BLEED_CHANCE = (70, 40, 20)
 
-HEALTH_RANGE = (450, 600, 750)
+HEALTH_RANGE = (250, 350, 500)
 health = 0
 
 def configure_difficulty(difficultyLevel):
@@ -52,7 +52,7 @@ def attack(is_stunned): #Expects a bool
             else:
                 if roll > SEVER_MISS_CHANCE:
                     damage = random.randint(SCRATCH_DAMAGE_LO, SCRATCH_DAMAGE_HI)
-                    print(f"The Wolf scratched you for {damage} damage!")
+                    print(f"The Wolf Severed a vein of yours for {damage} damage!")
                     
                     roll = random.randint(1, 100)
                     if roll >= BLEED_CHANCE:
