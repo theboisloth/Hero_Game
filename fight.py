@@ -11,9 +11,25 @@ rounds_bled = 0
 
 
 
-def fight(enemyType): #Takes enemy encountered
+def fight(enemyType, difficultyLevel): #Takes enemy encountered
     round = 1
+    configure_difficulty(difficultyLevel)
     battleEntry(enemyType)
+    if enemyType == 1: 
+        enemy = "Wolf"
+    elif enemyType == 2:
+        enemy = "Slime"
+    
+    elif enemyType == 3:
+        enemy = "Spider"
+    
+    elif enemyType == 4:
+        enemy = "Witch"
+    
+    elif enemyType == 5:
+        enemy = "Orc"
+
+    
     while not fight_is_over(enemyType): #Before Implementation, need enemy files
         
         print(f"\n{'+'*100}{'Round '+str(round):^21}{'+'*100}")
@@ -27,7 +43,7 @@ def fight(enemyType): #Takes enemy encountered
                 rounds_stunned -= 1
 
             if did_kick:
-                rounds_stunned = stun_logic(rounds_stunned)
+                rounds_stunned = stun_logic(rounds_stunned, enemy)
             
             if hero_attack_damage > 0:#Check enemy type and damage them
                 
@@ -173,6 +189,13 @@ def getEnemyHealth(enemyType):
     
     return enemyHealth
 
+def configure_difficulty(difficultyLevel):
+    hero.configure_difficulty(difficultyLevel)
+    wolf.configure_difficulty(difficultyLevel)
+#    slime.configure_difficulty(difficultyLevel)
+#    spider.configure_difficulty(difficultyLevel)
+#    witch.configure_difficulty(difficultyLevel)
+    orc.configure_difficulty(difficultyLevel)
 
 #Determines if either the enemy or the hero has died in combat.
 def fight_is_over(enemyType):
@@ -181,5 +204,4 @@ def fight_is_over(enemyType):
 
 
 #Test Wolf Fight
-wolf.configure_difficulty(1)
-fight(1)
+fight(1, 1)
