@@ -29,13 +29,13 @@ def configure_difficulty(difficultyLevel):
     BLEED_CHANCE = BLEED_CHANCE[difficultyLevel]
     health = HEALTH_RANGE[difficultyLevel]
     
-def dealDamage(damage):
+def deal_damage(damage):
     global health
     health -= damage
 
 def attack(is_stunned): #Expects a bool
     damage = 0
-    didBleed = False #Assume no bleed
+    didbleed = False #Assume no bleed
     if not is_stunned:
         roll = random.randint(1, 100)
         if roll > MISS_CHANCE:    
