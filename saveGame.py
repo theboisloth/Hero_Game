@@ -21,9 +21,9 @@ def load_game_state():
     
 
     hero.health = int(loadData[0])
-    inventoryState = int(loadData[2].strip("[")), int(loadData[3]), \
-    int(loadData[4]), int(loadData[5]), int(loadData[6]), int(loadData[7]), \
-    int(loadData[8]), float(loadData[9]), int(loadData[10]), int(loadData[11]),\
-    int(loadData[12].strip("]"))
+    inventoryState = int(loadData[1].strip("[")), int(loadData[2]), \
+    int(loadData[3]), int(loadData[4]), int(loadData[5]), int(loadData[6]), \
+    int(loadData[7]), float(loadData[8]), int(loadData[9]), int(loadData[10]),\
+    int(loadData[11].strip("]"))
 
     inventory.load_save_data(inventoryState)
