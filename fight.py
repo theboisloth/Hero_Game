@@ -143,7 +143,7 @@ def dealBleedDamage():
     hero.deal_damage(bleedDamage)
     print(f"You took {bleedDamage} damage from severe bleeding.")
 
-def stun_logic (rounds_stunned):
+def stun_logic (rounds_stunned, enemy):
     if rounds_stunned <= 0:
         stun_roll = random.randint(1, 100)
         if stun_roll <= STUN_RATE:
