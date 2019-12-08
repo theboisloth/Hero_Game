@@ -61,16 +61,28 @@ def deal_damage (damage):
         if ironskinRounds == ironskinRoll:
             ironskinActive = False
 
-def attack (is_poisoned, orc_is_stunned):
+def attack (is_poisoned, enemy_is_stunned, is_Bled, enemyType): #Enemytype expects an int
     attack_choice = get_attack()
+    if enemyType == 1:
+        enemyType = "Wolf"
+    elif enemyType == 2:
+        enemyType = "Slime"
+    elif enemyType == 3:
+        enemyType = "Spider"
+    elif enemyType == 4:
+        enemyType = "Witch"
+    elif enemyType == 5:
+        enemyType = "Orc"
 
     # Double miss rate if user is poisoned
     miss_rate_modifier = 1
     if is_poisoned:
         miss_rate_modifier = 2
+    if is_Bled:
+        deal_damage(random.randint(5, 15))
 
     attack_roll = random.randint(1, 100)
-    did_kick = False # assume the hero won't kick the orc
+    did_kick = False # assume the hero won't kick the enemy
     damage = 0    
     quit_game = False
     
@@ -78,13 +90,13 @@ def attack (is_poisoned, orc_is_stunned):
     
     # attack logic
     if attack_choice == 1 and attack_roll <= KICK_HIT_RATE // miss_rate_modifier:
-        damage = calculate_kick_damage() * get_damage_modifiers(orc_is_stunned)
-        print(f"You kicked the orc for {damage} damage!")
+        damage = calculate_kick_damage() * get_damage_modifiers(enemy_is_stunned, enemyType)
+        print(f"You kicked the enemy for {damage} damage!")
         did_kick = True
     
     elif attack_choice == 2 and attack_roll <= SWORD_HIT_RATE // miss_rate_modifier:
-        damage = calculate_sword_damage() * get_damage_modifiers(orc_is_stunned)
-        print(f"You sliced the orc with your sword for {damage} damage!")
+        damage = calculate_sword_damage() * get_damage_modifiers(enemy_is_stunned, enemyType)
+        print(f"You sliced the {enemyType} with your sword for {damage} damage!")
     
     elif attack_choice == 3:
         global did_block
@@ -122,7 +134,7 @@ def get_attack ():
     print("[4] Use Item") #Implements Inventory, new feature
     # print("[5] Save & Quit")
     attack_choice = int(input("Enter your choice: "))
-    while attack_choice not in [1, 2, 3, 4, 5]: #Ditto
+    while attack_choice not in [1, 2, 3, 4]: #Ditto
         attack_choice = int(input(f"{attack_choice} is invalid: Enter your choice: "))
     return attack_choice
 
@@ -141,16 +153,16 @@ def get_crit_damage_modifier ():
         damage_modifier = 2    
     return damage_modifier
 
-def get_stun_damage_modifier (orc_is_stunned):
+def get_stun_damage_modifier (enemy_is_stunned, enemyType):#enemyType expects a string
     damage_modifier = 1 # assume no stun damage increase
-    if orc_is_stunned: 
-        print("The orc is stunned!")
+    if enemy_is_stunned: 
+        print(f"The {enemyType} is stunned!")
         damage_modifier = 2    
     return damage_modifier
 
-def get_damage_modifiers (orc_is_stunned):
+def get_damage_modifiers (enemy_is_stunned,enemyType):
     crit_damage_modifier = get_crit_damage_modifier()
-    stun_damage_modifier = get_stun_damage_modifier(orc_is_stunned)
+    stun_damage_modifier = get_stun_damage_modifier(enemy_is_stunned, enemyType)
     return crit_damage_modifier * stun_damage_modifier
 
 def healDamage(healAmount): #implemented for healing from inventory items/other
