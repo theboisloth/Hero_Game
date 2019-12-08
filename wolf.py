@@ -4,7 +4,9 @@ import random
 
 #Damage ranges
 BITE_DAMAGE_RANGE = ((1, 10), (5, 15), (8, 20))
-SCRATCH_DAMAGE_RANGE = ((10, 30), (15, 35), )
+SCRATCH_DAMAGE_RANGE = ((10, 30), (15, 35), (20, 40))
+
+MISS_CHANCE_RANGE = ()
 
 def configure_difficulty(difficultyLevel):
     global pass
