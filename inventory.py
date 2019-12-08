@@ -150,6 +150,7 @@ def get_save_data():
     inventoryState = [FIREBOMBS, SMALL_HEALTH_POTS, HEALTH_POTS, IRONSKIN_POTS,\
         FIREBOMB_DAMAGE, SMALL_HEALTHPOT_HEALRATE, HEALTHPOT_HEALRATE, \
         IRONSKIN_EFFECTRATE, IRONSKIN_POTS, MAC_N_CHEESE, MUTTON_CHOP]
+    
     return inventoryState
 
 def load_save_data(inventoryState):

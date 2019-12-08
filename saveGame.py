@@ -13,11 +13,15 @@ def save_game_state(): #If used after difficulty configuration, working
     
     saveFile.write("\n")
 
+    saveFile.write(str(overworld.saved_coords))
+
+
     saveFile.close()
 
 def load_game_state():
     loadFile = open(f"saveGame.csv", "r")
     loadData = loadFile.readline().split(",")
+    
     
 
     hero.health = int(loadData[0])
@@ -26,4 +30,4 @@ def load_game_state():
     int(loadData[7]), float(loadData[8]), int(loadData[9]), int(loadData[10]),\
     int(loadData[11].strip("]"))
 
-    inventory.load_save_data(inventoryState)
+    inventory.load_save_data(inventoryState)    

@@ -1,10 +1,5 @@
 import inventory as inv
 
-FIREBOMBS = None
-SMALL_HEALTH_POTS = None
-HEALTH_POTS = None
-IRONSKIN_POTS = None
-
 def configure_difficulty(difficultyLevel):
     pass
 

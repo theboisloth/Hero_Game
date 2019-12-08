@@ -1,21 +1,11 @@
-# import fight
-import hero, inventory, orc
+import game
+import hero
+import inventory
+import orc
+import os
 import random
+import saveGame
 
-title = """
-\033[0;31m
- ██░ ██ ▓█████  ██▀███   ▒█████       ██████  ██▓    ▄▄▄     ▓██   ██▓▓█████  ██▀███  
-▓██░ ██▒▓█   ▀ ▓██ ▒ ██▒▒██▒  ██▒   ▒██    ▒ ▓██▒   ▒████▄    ▒██  ██▒▓█   ▀ ▓██ ▒ ██▒
-▒██▀▀██░▒███   ▓██ ░▄█ ▒▒██░  ██▒   ░ ▓██▄   ▒██░   ▒██  ▀█▄   ▒██ ██░▒███   ▓██ ░▄█ ▒
-░▓█ ░██ ▒▓█  ▄ ▒██▀▀█▄  ▒██   ██░     ▒   ██▒▒██░   ░██▄▄▄▄██  ░ ▐██▓░▒▓█  ▄ ▒██▀▀█▄  
-░▓█▒░██▓░▒████▒░██▓ ▒██▒░ ████▓▒░   ▒██████▒▒░██████▒▓█   ▓██▒ ░ ██▒▓░░▒████▒░██▓ ▒██▒
- ▒ ░░▒░▒░░ ▒░ ░░ ▒▓ ░▒▓░░ ▒░▒░▒░    ▒ ▒▓▒ ▒ ░░ ▒░▓  ░▒▒   ▓▒█░  ██▒▒▒ ░░ ▒░ ░░ ▒▓ ░▒▓░
- ▒ ░▒░ ░ ░ ░  ░  ░▒ ░ ▒░  ░ ▒ ▒░    ░ ░▒  ░ ░░ ░ ▒  ░ ▒   ▒▒ ░▓██ ░▒░  ░ ░  ░  ░▒ ░ ▒░
- ░  ░░ ░   ░     ░░   ░ ░ ░ ░ ▒     ░  ░  ░    ░ ░    ░   ▒   ▒ ▒ ░░     ░     ░░   ░ 
- ░  ░  ░   ░  ░   ░         ░ ░           ░      ░  ░     ░  ░░ ░        ░  ░   ░     
-                                                              ░ ░                 
-\033[0m                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-"""
 current_coords = [0,0]
 the_end = False
 def movement(current_coords, action):
@@ -23,28 +13,28 @@ def movement(current_coords, action):
     while accepted_input == False:
         move_command = action
         if move_command == "n":
-            if current_coords [1] == 5:
+            if current_coords [1] == 2:
                 accepted_input = False
                 print ("You can't go any further this way")
             else:
                 current_coords[1]= current_coords[1] + 1
                 accepted_input = True
         elif move_command == "s":
-            if current_coords [1] == -5:
+            if current_coords [1] == -2:
                 accepted_input = False
                 print ("You can't go any further this way")
             else:
                 current_coords[1]= current_coords[1] - 1
                 accepted_input = True
         elif move_command == "w":
-            if current_coords [0] == -5:
+            if current_coords [0] == -2:
                 accepted_input = False
                 print ("You can't go any further this way")
             else:
                 current_coords[0]= current_coords[0] - 1
                 accepted_input = True
         elif move_command == "e":
-            if current_coords [0] == 5:
+            if current_coords [0] == 2:
                 accepted_input = False
                 print ("You can't go any further this way")
             else:
@@ -142,14 +132,12 @@ def random_encounter (current_coords):
     return enemy
 
 def overworld_flavor_text(current_coords):
-    torch = True
     if current_coords == [0,0]:
         print ("Its safer here than elsewhere, but you can't just sit around forever")
     elif current_coords == [-1,0]:
-        if torch == True:
-            print ("You see an orc ahead of you, thankfully it seems distracted with a dead man")
-        else:
-            print ("You ded")
+        print ("something")
+    elif current_coords == [0,-1 ]:
+        print ("something")
     elif current_coords == [0,0]:   
         print ("something")
     elif current_coords == [0,0]:
@@ -168,29 +156,43 @@ def overworld_flavor_text(current_coords):
 # while the_end == False:
 #      current_coords = movement(current_coords)
 #      print (current_coords)
-
-
-
+title = """
+\033[0;31m
+ ██░ ██ ▓█████  ██▀███   ▒█████       ██████  ██▓    ▄▄▄     ▓██   ██▓▓█████  ██▀███  
+▓██░ ██▒▓█   ▀ ▓██ ▒ ██▒▒██▒  ██▒   ▒██    ▒ ▓██▒   ▒████▄    ▒██  ██▒▓█   ▀ ▓██ ▒ ██▒
+▒██▀▀██░▒███   ▓██ ░▄█ ▒▒██░  ██▒   ░ ▓██▄   ▒██░   ▒██  ▀█▄   ▒██ ██░▒███   ▓██ ░▄█ ▒
+░▓█ ░██ ▒▓█  ▄ ▒██▀▀█▄  ▒██   ██░     ▒   ██▒▒██░   ░██▄▄▄▄██  ░ ▐██▓░▒▓█  ▄ ▒██▀▀█▄  
+░▓█▒░██▓░▒████▒░██▓ ▒██▒░ ████▓▒░   ▒██████▒▒░██████▒▓█   ▓██▒ ░ ██▒▓░░▒████▒░██▓ ▒██▒
+ ▒ ░░▒░▒░░ ▒░ ░░ ▒▓ ░▒▓░░ ▒░▒░▒░    ▒ ▒▓▒ ▒ ░░ ▒░▓  ░▒▒   ▓▒█░  ██▒▒▒ ░░ ▒░ ░░ ▒▓ ░▒▓░
+ ▒ ░▒░ ░ ░ ░  ░  ░▒ ░ ▒░  ░ ▒ ▒░    ░ ░▒  ░ ░░ ░ ▒  ░ ▒   ▒▒ ░▓██ ░▒░  ░ ░  ░  ░▒ ░ ▒░
+ ░  ░░ ░   ░     ░░   ░ ░ ░ ░ ▒     ░  ░  ░    ░ ░    ░   ▒   ▒ ▒ ░░     ░     ░░   ░ 
+ ░  ░  ░   ░  ░   ░         ░ ░           ░      ░  ░     ░  ░░ ░        ░  ░   ░     
+                                                              ░ ░                 
+\033[0m                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+"""
 def start():
     print (title)
-    #game.get_difficulty()
+    get_difficulty()
     current_coords = [0,0]
     global enemy
     enemy = False
+
     while the_end == False:
         main(current_coords)
+
+
 def permanent_encounters(current_coords):
     if current_coords[0] == 0 and current_coords[1] == -1:
         #orc
         print ("broken orc encounter")
         unique_encounter = "orc"
         pass
-    elif current_coords [0] == -5 and current_coords [1] == -5:
+    elif current_coords [0] == -3 and current_coords [1] == -3:
         #orc
         unique_encounter = "orc"
         print ("broken orc encounter")
         pass 
-    elif current_coords [0] == 4 and current_coords [1] == 5:
+    elif current_coords [0] == 4 and current_coords [1] == 3:
         unique_encounter = "shop"
         print ("broken shop encounter")
     else:
@@ -199,25 +201,45 @@ def permanent_encounters(current_coords):
 
 
 def main(current_coords):
+    global saved_coords
+    saved_coords = current_coords
     action = input ("Enter what you want to do (help for commands): ")
-    if action == "n" or action == "s" or action == "e" or action == "w":
+    if action == "help":
+        print ("Input uses no capital letters. n, e, s, and w are used to move in cardinal directions")
+    elif action == "n" or action == "s" or action == "e" or action == "w":
         movement(current_coords, action)
-    
+    elif action == "save":
+        saveGame.save_game_state()
     else:
-        pass
-    
+        print ("Unaccepted input.")
     unique_encounter = permanent_encounters(current_coords)
-    
-    if unique_encounter != "none":
-        
+    if unique_encounter == "none":
         enemy = random_encounter(current_coords)
-        
         if enemy != "none":
             combat = True
-        
         elif enemy == "none":
             combat = False
-        
         if combat == True:
             print ("IT WORKED") #ADD CODE TO START FIGHT
+
+def get_difficulty ():
+    print("[1] Easy")
+    print("[2] Normal")
+    print("[3] Impossible")
+    print("[4] Load game")
+    difficulty = int(input("Choose your difficulty level: "))
+
+    if difficulty not in (1, 2, 3, 4):
+        print("Invalid option: You're playing impossible mode!")
+        difficulty = 3
+    if difficulty < 4:
+        difficulty -= 1
+        global difficulty_level
+        difficulty_level = difficulty
+        hero.configure_difficulty(difficulty)
+        orc.configure_difficulty(difficulty)
+        inventory.configure_difficulty(difficulty)
+    else:
+        (saveGame.load_game_state())
+
 start()
