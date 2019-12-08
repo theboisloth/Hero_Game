@@ -201,4 +201,4 @@ def fight_is_over(enemyType):
 
 #Test Wolf Fight
 inv.configure_difficulty(1)
-fight(1, 1)
+fight(5, 1)
