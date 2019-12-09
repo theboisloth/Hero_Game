@@ -34,7 +34,3 @@ def load_game_state():
 
     inventory.load_save_data(inventoryState)
     return saved_coords
-
-inventory.configure_difficulty(1)
-save_game_state([1, 1])
-print(load_game_state())

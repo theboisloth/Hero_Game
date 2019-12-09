@@ -6,6 +6,8 @@ import random
 import saveGame
 import fight
 import shop
+import sys
+
 current_coords = [0,0]
 the_end = False
 def movement(current_coords, action):
@@ -89,7 +91,7 @@ def random_encounter (current_coords):
             print ("N")
     elif  y <= -1 and x >= 1: # SE
         if encounter_chance > 75 and encounter_chance < 85: #secondary enemy for SE, wolf
-            enemy = "wolf"
+            enemy = "Wolf"
             print ("SE")
         elif encounter_chance > 85: #primary enemy for south, slime
             enemy = "Slime"
@@ -106,10 +108,10 @@ def random_encounter (current_coords):
             print ("E")
     elif y <= -1 and x <= -1: #SW
         if encounter_chance > 65 and encounter_chance < 85: #secondary enemy for SW, witch
-            enemy = "witch"
+            enemy = "Witch"
             print ("SW")
         elif encounter_chance > 85:
-            enemy = "slime"
+            enemy = "Slime"
             print ("SW")
         else:
             enemy = "none"
@@ -123,7 +125,7 @@ def random_encounter (current_coords):
             print ("W")
     elif y <= -1: #straight south
         if encounter_chance > 85: #
-            enemy = "slime"
+            enemy = "Slime"
             print ("S")
         else:
             enemy = "none"
@@ -138,7 +140,8 @@ def overworld_flavor_text(current_coords):
     ####################################### east
     elif current_coords == [1, 0]:
         print ("The path leads east through a calm forest. The cobbles are ill maintained, but still fully functional.")
-        print ("The further you follow the path, the more apparent ")
+        print ("The further you follow the path, the more apparent past conflict is.")
+        print ("The path is more and more drenched in blood the further you head.")
     elif current_coords == [2, 0]:
         print ("Theres an orcish camp ahead of you contaminating the otherwise pristine forest with a poorly constructed palisade.")
         print ("An orc guard patrolling the area spots you and rushes.")
@@ -156,7 +159,7 @@ def overworld_flavor_text(current_coords):
         print ("You don't dare head any further north, the spiders here only get larger.")
     elif current_coords == [0, 1]:
         print ("The path heads north then ends abruptly. apparently man never made it here even before the war.")
-        print ("You can see why ahead, the thick cobwebs engulf every surface available to them.")
+        print ("You can see why ahead, the thick cobwebs cover every surface available to them.")
     elif current_coords == [-1, 1]:
         print ("The forest is dark and caked with cobwebs, you're navigating mostly by touch at this point due to the overcast and cobweb canopy above you.")
     elif current_coords == [-2, 1]:
@@ -241,9 +244,15 @@ def start():
     current_coords = [0,0]
     global enemy
     enemy = False
+    print ("You wake up in an abandoned wagon with little recollection of what happened.")
+    print ("You don't remember much, except you regret stealing that horse and trying to cross the border.")
+    print ("There is a path headed in every direction, which one is yours?")
+    difficulty_level = None
 
     while the_end == False:
-        main(current_coords)
+        if difficulty_level == None:
+            difficulty_level = 2
+        main(current_coords, difficulty_level)
 
 def permanent_encounters(current_coords):
     if current_coords[0] == 0 and current_coords[1] == -1:
@@ -256,12 +265,13 @@ def permanent_encounters(current_coords):
         pass
     elif current_coords [0] == 2 and current_coords [1] == 2:
         unique_encounter = "shop"
-        print ("You can now use 'shop'")
+        print ("You can now use 'shop'!")
     else:
         unique_encounter = "none"
     return unique_encounter
 
-def main(current_coords):
+def main(current_coords, difficulty_level):
+    print
     global saved_coords
     saved_coords = current_coords
     action = input ("Enter what you want to do (help for commands): ")
@@ -270,12 +280,17 @@ def main(current_coords):
     elif action == "n" or action == "s" or action == "e" or action == "w":
         movement(current_coords, action)
     elif action == "gold":
+        print ("Current gold : ", hero.gold)
         pass
     elif action == "shop" and current_coords [0] == 2 and current_coords [1] == 2:
         shop.configure_difficulty(difficulty_level)
         shop.displayShopIntro()
-    elif action == "save":
+    elif action == "save" and current_coords[0] == 0 and current_coords[1] == 0:
         saveGame.save_game_state(saved_coords)
+    elif action == "save":
+        print ("Its not safe here! Return to 0,0 to save!")
+    elif action == "quit":
+        sys.exit(0)
     else:
         print ("Unaccepted input.")
     unique_encounter = permanent_encounters(current_coords)
@@ -289,23 +304,18 @@ def main(current_coords):
             print (enemy) #ADD CODE TO START FIGHT
         if enemy == "Wolf":
             enemy = 1
-            print ("indeed")
         elif enemy == "Slime":
             enemy = 2
-            print ("indeed")
         elif enemy == "Spider":
             enemy = 3
-            print ("indeed")
         elif enemy == "Witch":
             enemy = 4
-            print ("indeed")
         if unique_encounter == "orc":
             enemy = 5
-            print ("indeed")
         if enemy == 1 or enemy == 2 or enemy == 3 or enemy == 4 or enemy == 5:
             fight.configure_difficulty(difficulty_level)
             fight.fight(enemy, difficulty_level)
-        
+            print("You gained: ", hero.gold, "gold!")
 
 def get_difficulty ():
     print("[1] Easy")
@@ -326,10 +336,26 @@ def get_difficulty ():
         inventory.configure_difficulty(difficulty)
     else:
         go_to(saveGame.load_game_state())
+def load_dificulty ():
+    print("[1] Easy")
+    print("[2] Normal") 
+    print("[3] Impossible")
+    
+    difficulty = int(input("Choose your difficulty level: "))
+
+    if difficulty not in (1, 2, 3):
+        print("Invalid option: You're playing impossible mode!")
+        difficulty = 3
+    if difficulty < 4:
+        difficulty -= 1
+    return difficulty
 
 def go_to(saved_coords):
     global current_coords
     current_coords = saved_coords
-
+    difficulty_level = load_dificulty()
+    shop.configure_difficulty(difficulty_level)
+    fight.configure_difficulty(difficulty_level)
+    main(current_coords, difficulty_level)
 
 start()

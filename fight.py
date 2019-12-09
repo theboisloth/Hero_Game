@@ -1,16 +1,15 @@
 #Fight code made from scratch
-#This starts the fight, takes enemy type and difficulty level
+#This starts the fight, takes enemy type
 #Cannnot save while in combat
 import hero, orc, saveGame, wolf, slime, spider, witch
 import inventory as inv
 import random
+import sys
 
 rounds_poisoned = 0
 rounds_stunned = 0
 STUN_RATE = 10
 rounds_bled = 0
-
-
 
 def fight(enemyType, difficultyLevel): #Takes enemy encountered
     round = 1
@@ -90,10 +89,15 @@ def fight(enemyType, difficultyLevel): #Takes enemy encountered
     #End of Fight
     if hero.health <= 0:
         print("The Hero has fallen.")
+        terminate()
     
     if getEnemyHealth(enemyType) <= 0:
         print(f"The {enemy} died.")
         hero.updateGold(True, random.randint(20, 50))
+
+
+def terminate():
+    exit()
 
 def battleEntry(enemyType):
     if enemyType == 1:
@@ -226,10 +230,3 @@ def configure_difficulty(difficultyLevel):
 #Determines if either the enemy or the hero has died in combat.
 def fight_is_over(enemyType):
     return (hero.health <= 0 or getEnemyHealth(enemyType) <= 0)
-
-
-
-#Test Fight
-# inv.configure_difficulty(1)
-# spider.configure_difficulty(1)
-# fight(4, 1)

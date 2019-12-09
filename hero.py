@@ -110,7 +110,7 @@ def attack (is_poisoned, enemy_is_stunned, is_Bled, enemyType): #Enemytype expec
         while itemUsed == 5:
             inventory.describeItems()
             itemUsed = inventory.displayItemSelect()
-        if itemUsed == 1:
+        if itemUsed == 1 and inventory.FIREBOMBS > 0:
             damage = inventory.useItem(itemUsed)
         elif itemUsed in [2, 3]:
             inventory.useItem(itemUsed)
