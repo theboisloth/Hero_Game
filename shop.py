@@ -88,7 +88,9 @@ def calcPrice(itemValue):
 
 def shoppe(itemCost):
 
-    # hero.updateGold(False, itemCost)
+    hero.updateGold(False, itemCost)
+    gold = hero.gold
+    print(f"You have {gold} gp left")
     print("[1]Continue Shopping\n[2]Leave")
     again = int(input("Would you like to keep shopping?\n"))
     while again not in [1, 2]:
