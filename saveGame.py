@@ -32,8 +32,8 @@ def load_game_state():
     int(loadData[11].strip("]"))
 
     saved_coords = loadFile.readline().split(",")
-    saved_coords[0] = saved_coords[0].strip("[")
-    saved_coords[1] = saved_coords[1].strip("]")
+    saved_coords[0] = int(saved_coords[0].strip("["))
+    saved_coords[1] = int(saved_coords[1].strip("]"))
     overworld.go_to(saved_coords)
 
     inventory.load_save_data(inventoryState)    
