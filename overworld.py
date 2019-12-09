@@ -4,6 +4,7 @@ import orc
 import os
 import random
 import saveGame
+import fight
 current_coords = [0,0]
 the_end = False
 def movement(current_coords, action):
@@ -266,9 +267,11 @@ def main(current_coords):
     saved_coords = current_coords
     action = input ("Enter what you want to do (help for commands): ")
     if action == "help":
-        print ("Input uses no capital letters. n, e, s, and w are used to move in cardinal directions")
+        print ("Input uses no capital letters. n, e, s, and w are used to move in cardinal directions, 'gold' checks gold")
     elif action == "n" or action == "s" or action == "e" or action == "w":
         movement(current_coords, action)
+    elif action == "gold":
+        pass
     elif action == "save":
         saveGame.save_game_state(saved_coords)
     else:
@@ -281,11 +284,30 @@ def main(current_coords):
         elif enemy == "none":
             combat = False
         if combat == True:
-            print ("IT WORKED") #ADD CODE TO START FIGHT
+            print (enemy) #ADD CODE TO START FIGHT
+        if enemy == "Wolf":
+            enemy = 1
+            print ("indeed")
+        elif enemy == "Slime":
+            enemy = 2
+            print ("indeed")
+        elif enemy == "Spider":
+            enemy = 3
+            print ("indeed")
+        elif enemy == "Witch":
+            enemy = 4
+            print ("indeed")
+        if unique_encounter == "orc":
+            enemy = 5
+            print ("indeed")
+        if enemy == 1 or enemy == 2 or enemy == 3 or enemy == 4 or enemy == 5:
+            fight.configure_difficulty(difficulty_level)
+            fight.fight(enemy, difficulty_level)
+        
 
 def get_difficulty ():
     print("[1] Easy")
-    print("[2] Normal")
+    print("[2] Normal") 
     print("[3] Impossible")
     print("[4] Load game")
     difficulty = int(input("Choose your difficulty level: "))
