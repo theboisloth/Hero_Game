@@ -32,7 +32,8 @@ def load_game_state():
 
     saved_coords = loadFile.readline().split(",")
     saved_coords[0] = int(saved_coords[0].strip("["))
-    saved_coords[1] = int(saved_coords[1].strip("]"))
+    saved_coords[1] = saved_coords[1].strip("]")
+    saved_coords[1] = int(saved_coords[1])
 
     inventory.load_save_data(inventoryState)
     return saved_coords    

@@ -1,5 +1,5 @@
 #Fight code made from scratch
-#This starts the fight, takes enemy type
+#This starts the fight, takes enemy type and difficulty level
 #Cannnot save while in combat
 import hero, orc, saveGame, wolf, slime, spider, witch
 import inventory as inv

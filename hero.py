@@ -133,7 +133,7 @@ def get_attack ():
     print("[3] Block")
     print("[4] Use Item") #Implements Inventory, new feature
     # print("[5] Save & Quit")
-    attack_choice = int(input("Enter your choice: "))
+    attack_choice = int(input("Enter your choice: \n"))
     while attack_choice not in [1, 2, 3, 4]: #Ditto
         attack_choice = int(input(f"{attack_choice} is invalid: Enter your choice: "))
     return attack_choice

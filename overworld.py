@@ -5,6 +5,7 @@ import os
 import random
 import saveGame
 import fight
+import shop
 current_coords = [0,0]
 the_end = False
 def movement(current_coords, action):
@@ -246,8 +247,6 @@ def start():
 
 def permanent_encounters(current_coords):
     if current_coords[0] == 0 and current_coords[1] == -1:
-        #orc
-        print ("broken orc encounter")
         unique_encounter = "orc"
         pass
     elif current_coords [0] == 2 and current_coords [1] == 0:
@@ -257,7 +256,7 @@ def permanent_encounters(current_coords):
         pass
     elif current_coords [0] == 2 and current_coords [1] == 2:
         unique_encounter = "shop"
-        print ("broken shop encounter")
+        print ("You can now use 'shop'")
     else:
         unique_encounter = "none"
     return unique_encounter
@@ -272,12 +271,15 @@ def main(current_coords):
         movement(current_coords, action)
     elif action == "gold":
         pass
+    elif action == "shop" and current_coords [0] == 2 and current_coords [1] == 2:
+        shop.configure_difficulty(difficulty_level)
+        shop.displayShopIntro()
     elif action == "save":
         saveGame.save_game_state(saved_coords)
     else:
         print ("Unaccepted input.")
     unique_encounter = permanent_encounters(current_coords)
-    if unique_encounter == "none":
+    if unique_encounter == "none" or unique_encounter == "orc":
         enemy = random_encounter(current_coords)
         if enemy != "none":
             combat = True
