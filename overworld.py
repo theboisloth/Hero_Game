@@ -301,7 +301,7 @@ def get_difficulty ():
         orc.configure_difficulty(difficulty)
         inventory.configure_difficulty(difficulty)
     else:
-        (saveGame.load_game_state())
+        go_to(saveGame.load_game_state())
 
 def go_to(saved_coords):
     global current_coords

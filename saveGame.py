@@ -1,9 +1,8 @@
 import inventory, hero, orc#, overworld
-import go_to from overworld
 import os.path
 #New File, needed to save ALL of the data
 #Works with files imported so far.
-def save_game_state(): #If used after difficulty configuration, working
+def save_game_state(coords): #If used after difficulty configuration, working
     saveFile = open(f"saveGame.csv", "w")
     saveFile.write(str(hero.health) + ',')
     inventoryState = str(inventory.get_save_data())
@@ -14,7 +13,7 @@ def save_game_state(): #If used after difficulty configuration, working
     
     saveFile.write("\n")
 
-    saveFile.write(str(overworld.saved_coords))
+    saveFile.write(str(coords))
 
 
     saveFile.close()
@@ -34,6 +33,6 @@ def load_game_state():
     saved_coords = loadFile.readline().split(",")
     saved_coords[0] = int(saved_coords[0].strip("["))
     saved_coords[1] = int(saved_coords[1].strip("]"))
-    overworld.go_to(saved_coords)
 
-    inventory.load_save_data(inventoryState)    
+    inventory.load_save_data(inventoryState)
+    return saved_coords    
