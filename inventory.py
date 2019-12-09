@@ -72,7 +72,7 @@ def displayItemSelect():
 
     return itemUsed
 
-def describeItems(): #Implementing...
+def describeItems(): 
     
     global FIREBOMBS, SMALL_HEALTH_POTS, HEALTH_POTS, IRONSKIN_POTS
     print(f"Firebombs: Throw a Firebomb to deal {FIREBOMB_DAMAGE} damage to the enemy.")
@@ -86,7 +86,7 @@ def useItem(item):#Returns damage if firebomb used, otherwise fruitless
     global FIREBOMBS, FIREBOMB_DAMAGE, SMALL_HEALTH_POTS, \
         SMALL_HEALTHPOT_HEALRATE, HEALTH_POTS, HEALTHPOT_HEALRATE,\
         IRONSKIN_POTS, IRONSKIN_EFFECTRATE
-    if item == 1:
+    if item == 1 and FIREBOMBS > 0:
 
         damage = int(FIREBOMB_DAMAGE)
         
@@ -97,23 +97,24 @@ def useItem(item):#Returns damage if firebomb used, otherwise fruitless
         print(f"You have {FIREBOMBS} Firebombs left.")
         return damage
 
-    elif item == 2:
+    elif item == 2 and SMALL_HEALTH_POTS > 0:
 
         hero.healDamage(SMALL_HEALTHPOT_HEALRATE)
         SMALL_HEALTH_POTS -= 1
         print("You used a Small Health Potion and healed for "
         f"{SMALL_HEALTHPOT_HEALRATE}")
-    elif item == 3:
+    elif item == 3 and HEALTH_POTS > 0:
         hero.healDamage(HEALTHPOT_HEALRATE)
         HEALTH_POTS -= 1
         print("You used a Health Potion and healed for "
         f"{HEALTHPOT_HEALRATE}")
     
-    elif item == 4: #Ironskin potion not implemented yet
-        global IRONSKIN_POTS, IRONSKIN_EFFECTRATE
+    elif item == 4 and IRONSKIN_POTS > 0: #Ironskin potion not implemented yet
         IRONSKIN_POTS -= 1
         print(f"You used an Ironskin Potion, you take "
         f"{IRONSKIN_EFFECTRATE * 100}% of the Damage you normally would!")
+    else:
+        print("You do not have any more of that item remaining")
 
 def addItem(itemValue, goldSpent):
     global FIREBOMBS, SMALL_HEALTH_POTS, HEALTH_POTS, IRONSKIN_POTS
@@ -150,6 +151,7 @@ def get_save_data():
     inventoryState = [FIREBOMBS, SMALL_HEALTH_POTS, HEALTH_POTS, IRONSKIN_POTS,\
         FIREBOMB_DAMAGE, SMALL_HEALTHPOT_HEALRATE, HEALTHPOT_HEALRATE, \
         IRONSKIN_EFFECTRATE, IRONSKIN_POTS, MAC_N_CHEESE, MUTTON_CHOP]
+    
     return inventoryState
 
 def load_save_data(inventoryState):
