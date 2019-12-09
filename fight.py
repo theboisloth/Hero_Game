@@ -230,6 +230,6 @@ def fight_is_over(enemyType):
 
 
 #Test Fight
-inv.configure_difficulty(1)
-spider.configure_difficulty(1)
-fight(4, 1)
+# inv.configure_difficulty(1)
+# spider.configure_difficulty(1)
+# fight(4, 1)

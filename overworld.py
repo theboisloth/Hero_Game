@@ -1,4 +1,3 @@
-import game
 import hero
 import inventory
 import orc
@@ -135,11 +134,33 @@ def overworld_flavor_text(current_coords):
     if current_coords == [0,0]:
         print ("Its safe here... but you can't just sit around forever")
     ####################################### east
-    elif current_coords == [0, 1]:
+    elif current_coords == [1, 0]:
         print ("The path leads east through a calm forest. The cobbles are ill maintained, but still fully functional.")
         print ("The further you follow the path, the more apparent ")
+    elif current_coords == [2, 0]:
+        print ("Theres an orcish camp ahead of you contaminating the otherwise pristine forest with a poorly constructed palisade.")
+        print ("An orc guard patrolling the area spots you and rushes.")
+    elif current_coords == [1, 1]:
+        print ("The trunks of trees are beginning to look as if they were made of silk instead of bark, a thick layer of cobwebs covers the area and makes movement difficult.")
+    elif current_coords == [2, 1]:
+        print ("The forest grows thinner here, a cliff on the east side stretches as far north as the eye can see.")
+        print ("In the distance you can see a rainbow crossing over a stream and a village nearby, but you can't go back yet.")
+    elif current_coords == [2, 2]:
+        print ("A lone shack stands, with a sign that has 'WARES' written sloppily on a slanted massive board.")
+        print ("A madman lives inside, but he's still more friendly than the rest of the forests inhabitants.")
+        print ("You enter and he offers to trade, maybe those coins you collected have a use after all.")
     elif current_coords == [0, 2]:
-        pass
+        print ("The forest is silent, except for the scittering spiders and howls of wolves.")
+        print ("You don't dare head any further north, the spiders here only get larger.")
+    elif current_coords == [0, 1]:
+        print ("The path heads north then ends abruptly. apparently man never made it here even before the war.")
+        print ("You can see why ahead, the thick cobwebs engulf every surface available to them.")
+    elif current_coords == [-1, 1]:
+        print ("The forest is dark and caked with cobwebs, you're navigating mostly by touch at this point due to the overcast and cobweb canopy above you.")
+    elif current_coords == [-2, 1]:
+        print ("The cobwebs are thick here, which is better than before")
+    elif current_coords == [-2, 2]:
+        print ("This is the wrong way. You've heard tales about the innerlands, not many claim to return from there, and none who claimed they would return have.")
     ####################################### south
     elif current_coords == [0,-1]: #orc camp
         print ("You push through the light brush towards a clearing. The air has a metallic property to it")

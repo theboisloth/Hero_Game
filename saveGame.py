@@ -1,4 +1,5 @@
 import inventory, hero, orc#, overworld
+import go_to from overworld
 import os.path
 #New File, needed to save ALL of the data
 #Works with files imported so far.
@@ -29,5 +30,10 @@ def load_game_state():
     int(loadData[3]), int(loadData[4]), int(loadData[5]), int(loadData[6]), \
     int(loadData[7]), float(loadData[8]), int(loadData[9]), int(loadData[10]),\
     int(loadData[11].strip("]"))
+
+    saved_coords = loadFile.readline().split(",")
+    saved_coords[0] = saved_coords[0].strip("[")
+    saved_coords[1] = saved_coords[1].strip("]")
+    overworld.go_to(saved_coords)
 
     inventory.load_save_data(inventoryState)    
