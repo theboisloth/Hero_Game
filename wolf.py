@@ -1,5 +1,4 @@
 import random
-#Unused file thus far, being built currently.
 #Wolf has no crit chance
 
 #Damage ranges

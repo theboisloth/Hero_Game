@@ -1,7 +1,7 @@
 #Fight code made from scratch
 #This starts the fight, takes enemy type
 #Cannnot save while in combat
-import hero, orc, saveGame, wolf#, spider, witch, slime
+import hero, orc, saveGame, wolf, slime, spider#, witch, 
 import inventory as inv
 import random
 
@@ -16,6 +16,7 @@ def fight(enemyType, difficultyLevel): #Takes enemy encountered
     round = 1
     configure_difficulty(difficultyLevel)
     battleEntry(enemyType)
+    
     if enemyType == 1: 
         enemy = "Wolf"
     elif enemyType == 2:
@@ -52,10 +53,10 @@ def fight(enemyType, difficultyLevel): #Takes enemy encountered
                     wolf.deal_damage(hero_attack_damage)
 
                 elif enemyType == 2:
-                    pass
+                    slime.deal_damage(hero_attack_damage)
                 
                 elif enemyType == 3:
-                    pass
+                    spider.deal_damage(hero_attack_damage)
                 
                 elif enemyType == 4:
                     pass
@@ -123,9 +124,27 @@ def enemy_turn_logic(rounds_poisoned, rounds_stunned, rounds_bled, enemyType):
 
 
     elif enemyType == 2:
-        pass
+        damage = slime.attack(rounds_stunned > 0)
+        if damage > 0 and rounds_stunned == 0:
+            hero.deal_damage(damage)
+        elif rounds_stunned == 0:
+            print("The Slime Missed!")
+        elif rounds_stunned != 0:
+            print("The Slime is Stunned!")
+
+
     elif enemyType == 3:
         pass
+        damage, did_poison = spider.attack(rounds_stunned > 0)
+        if damage > 0 and rounds_stunned == 0:
+            hero.deal_damage(damage)
+        elif rounds_stunned == 0:
+            print("The Spider Missed!")
+        elif rounds_stunned != 0:
+            print("The Spider is Stunned!")
+        if did_poison:
+            rounds_poisoned = random.randint(2, 5)
+
     elif enemyType == 4:
         pass
 
@@ -172,14 +191,17 @@ def getEnemyHealth(enemyType):
         enemyHealth = wolf.health
     
     elif enemyType == 2:
-        enemyHealth = 5
-        
-    elif enemyType == 3:
-        enemyHealth = 5
+        enemyHealth = slime.health
 
-    elif enemyType == 4:
-        enemyHealth = 5
+
+    elif enemyType == 3:
+        enemyHealth = spider.health
+
+    elif enemyType == 4: #Not implemented yet
+        pass
+        # enemsyHealth = witch.health
     
+
     elif enemyType == 5:
         enemyHealth = orc.health
     
@@ -188,8 +210,8 @@ def getEnemyHealth(enemyType):
 def configure_difficulty(difficultyLevel):
     hero.configure_difficulty(difficultyLevel)
     wolf.configure_difficulty(difficultyLevel)
-#    slime.configure_difficulty(difficultyLevel)
-#    spider.configure_difficulty(difficultyLevel)
+    slime.configure_difficulty(difficultyLevel)
+    spider.configure_difficulty(difficultyLevel)
 #    witch.configure_difficulty(difficultyLevel)
     orc.configure_difficulty(difficultyLevel)
 
@@ -199,6 +221,7 @@ def fight_is_over(enemyType):
 
 
 
-#Test Wolf Fight
+#Test Fight
 inv.configure_difficulty(1)
-fight(5, 1)
+spider.configure_difficulty(1)
+fight(3, 1)
