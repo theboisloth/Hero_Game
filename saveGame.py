@@ -10,7 +10,10 @@ def save_game_state(coords): #If used after difficulty configuration, working
     while i < len(inventoryState):
         saveFile.write(inventoryState[i])
         i += 1
-    saveFile.write(str(coords))
+
+    saveFile.write(str(f","))
+    saveFile.write(str(f"{coords[0]},"))
+    saveFile.write(str(f"{coords[1]}"))
 
 
     saveFile.close()
@@ -27,9 +30,11 @@ def load_game_state():
     int(loadData[3]), int(loadData[4]), int(loadData[5]), int(loadData[6]), \
     int(loadData[7]), float(loadData[8]), int(loadData[9]), int(loadData[10]),\
     int(lastPlace)
-    saved_coords = [int(loadData[12].strip("[")), int(loadData[12].strip("]"))]
+    saved_coords = [int(loadData[12]), int(loadData[13])]
 
     inventory.load_save_data(inventoryState)
     return saved_coords
 
+inventory.configure_difficulty(1)
+save_game_state([1, 1])
 print(load_game_state())
