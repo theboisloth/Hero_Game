@@ -93,6 +93,7 @@ def fight(enemyType, difficultyLevel): #Takes enemy encountered
     
     if getEnemyHealth(enemyType) <= 0:
         print(f"The {enemy} died.")
+        hero.updateGold(True, random.randint(20, 50))
 
 def battleEntry(enemyType):
     if enemyType == 1:

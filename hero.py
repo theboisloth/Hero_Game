@@ -30,7 +30,7 @@ did_block = False
 ironskinActive = False #Ironskin potion effect
 ironskinRounds = 0
 
-gold = 50000
+gold = 0
 
 def configure_difficulty (difficulty_level):
     global KICK_HIT_RATE, SWORD_HIT_RATE, KICK_DAMAGE_LO,   \
