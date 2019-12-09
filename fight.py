@@ -1,7 +1,7 @@
 #Fight code made from scratch
 #This starts the fight, takes enemy type
 #Cannnot save while in combat
-import hero, orc, saveGame, wolf, slime, spider#, witch, 
+import hero, orc, saveGame, wolf, slime, spider, witch
 import inventory as inv
 import random
 
@@ -59,7 +59,7 @@ def fight(enemyType, difficultyLevel): #Takes enemy encountered
                     spider.deal_damage(hero_attack_damage)
                 
                 elif enemyType == 4:
-                    pass
+                    witch.deal_damage(hero_attack_damage)
                 
                 elif enemyType == 5:
                     orc.deal_damage(hero_attack_damage)
@@ -134,7 +134,6 @@ def enemy_turn_logic(rounds_poisoned, rounds_stunned, rounds_bled, enemyType):
 
 
     elif enemyType == 3:
-        pass
         damage, did_poison = spider.attack(rounds_stunned > 0)
         if damage > 0 and rounds_stunned == 0:
             hero.deal_damage(damage)
@@ -146,7 +145,16 @@ def enemy_turn_logic(rounds_poisoned, rounds_stunned, rounds_bled, enemyType):
             rounds_poisoned = random.randint(2, 5)
 
     elif enemyType == 4:
-        pass
+        damage, did_poison, didHeal = witch.attack(rounds_stunned > 0)
+        if damage > 0 and rounds_stunned == 0:
+            hero.deal_damage(damage)
+        elif rounds_stunned == 0 and not didHeal:
+            print("The witch Missed!")
+        elif rounds_stunned != 0:
+            print("The Witch is Stunned!")
+        if did_poison:
+            rounds_poisoned = random.randint(2, 5)
+        
 
 
     elif enemyType == 5:
@@ -198,8 +206,7 @@ def getEnemyHealth(enemyType):
         enemyHealth = spider.health
 
     elif enemyType == 4: #Not implemented yet
-        pass
-        # enemsyHealth = witch.health
+        enemyHealth = witch.health
     
 
     elif enemyType == 5:
@@ -212,7 +219,7 @@ def configure_difficulty(difficultyLevel):
     wolf.configure_difficulty(difficultyLevel)
     slime.configure_difficulty(difficultyLevel)
     spider.configure_difficulty(difficultyLevel)
-#    witch.configure_difficulty(difficultyLevel)
+    witch.configure_difficulty(difficultyLevel)
     orc.configure_difficulty(difficultyLevel)
 
 #Determines if either the enemy or the hero has died in combat.
@@ -224,4 +231,4 @@ def fight_is_over(enemyType):
 #Test Fight
 inv.configure_difficulty(1)
 spider.configure_difficulty(1)
-fight(3, 1)
+fight(4, 1)
