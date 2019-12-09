@@ -11,7 +11,7 @@ def save_game_state(coords): #If used after difficulty configuration, working
         saveFile.write(inventoryState[i])
         i += 1
     
-    saveFile.write("\n")
+    saveFile.write(" \n")
 
     saveFile.write(str(coords))
 
@@ -22,8 +22,8 @@ def load_game_state():
     loadFile = open(f"saveGame.csv", "r")
     loadData = loadFile.readline().split(",")
     
-    
-    lastPlace = loadData[11].strip("] ")
+    global lastPlace
+    lastPlace = loadData[11].strip("]\n")
     hero.health = int(loadData[0])
     inventoryState = int(loadData[1].strip("[")), int(loadData[2]), \
     int(loadData[3]), int(loadData[4]), int(loadData[5]), int(loadData[6]), \
